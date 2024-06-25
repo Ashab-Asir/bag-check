@@ -3,7 +3,7 @@ import BackgroundHeading from "./BackgroundHeading";
 import Footer from "./Footer";
 import Header from "./Header";
 import ItemList from "./ItemList";
-import Sidebar from "./Sidebar";
+import Sidebar from "./SideBar";
 const initialItems = [
   {
     id: 1,
@@ -23,13 +23,38 @@ const initialItems = [
 ];
 function App() {
   const [items, setItems] = useState(initialItems);
+
+  const handleRemoveAllItem = () => {
+    setItems([]);
+  };
+  const handleResetToAll = () => {
+    setItems(initialItems);
+  };
+  const handleMarkAllComplete = () => {
+    const updateItem = items.map((item) => {
+      return { ...item, packed: true };
+    });
+    setItems(updateItem);
+  };
+  const handleMarkAllIncomplete = () => {
+    const updateItem = items.map((item) => {
+      return { ...item, packed: false };
+    });
+    setItems(updateItem);
+  };
   return (
     <>
       <BackgroundHeading></BackgroundHeading>
       <main>
         <Header></Header>
         <ItemList items={items}></ItemList>
-        <Sidebar setItems={setItems}></Sidebar>
+        <Sidebar
+          handleRemoveAllItem={handleRemoveAllItem}
+          handleResetToAll={handleResetToAll}
+          setItems={setItems}
+          handleMarkAllComplete={handleMarkAllComplete}
+          handleMarkAllIncomplete={handleMarkAllIncomplete}
+        ></Sidebar>
       </main>
       <Footer></Footer>
     </>

@@ -20,7 +20,6 @@ export default function AddItemForm({ setItems }) {
         };
         setItems((prev) => [...prev, newItem]);
         setItemText("");
-        inputRef.current.focus();
       }}
     >
       <h2>Add an Item</h2>
