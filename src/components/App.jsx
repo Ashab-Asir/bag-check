@@ -23,7 +23,21 @@ const initialItems = [
 ];
 function App() {
   const [items, setItems] = useState(initialItems);
-
+  const handleToggleItem = (id) => {
+    const updateItem = items.map((item) => {
+      if (item.id === id) {
+        return { ...item, packed: !item.packed };
+      }
+      return item;
+    });
+    setItems(updateItem);
+  };
+  const handleDeleteItem = (id) => {
+    const updateItem = items.filter((item) => {
+      return item.id !== id;
+    });
+    setItems(updateItem);
+  };
   const handleRemoveAllItem = () => {
     setItems([]);
   };
@@ -47,7 +61,11 @@ function App() {
       <BackgroundHeading></BackgroundHeading>
       <main>
         <Header></Header>
-        <ItemList items={items}></ItemList>
+        <ItemList
+          handleToggleItem={handleToggleItem}
+          handleDeleteItem={handleDeleteItem}
+          items={items}
+        ></ItemList>
         <Sidebar
           handleRemoveAllItem={handleRemoveAllItem}
           handleResetToAll={handleResetToAll}
