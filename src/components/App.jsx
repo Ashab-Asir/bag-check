@@ -23,6 +23,10 @@ const initialItems = [
 ];
 function App() {
   const [items, setItems] = useState(initialItems);
+  const totalNumberOfItem = items.length;
+  const totalNumberOfPacked = items.filter(
+    (item) => item.packed === true
+  ).length;
   const handleToggleItem = (id) => {
     const updateItem = items.map((item) => {
       if (item.id === id) {
@@ -60,7 +64,10 @@ function App() {
     <>
       <BackgroundHeading></BackgroundHeading>
       <main>
-        <Header></Header>
+        <Header
+          totalNumberOfPacked={totalNumberOfPacked}
+          totalNumberOfItem={totalNumberOfItem}
+        ></Header>
         <ItemList
           handleToggleItem={handleToggleItem}
           handleDeleteItem={handleDeleteItem}
