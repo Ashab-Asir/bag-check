@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BackgroundHeading from "./BackgroundHeading";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -22,7 +22,8 @@ const initialItems = [
   },
 ];
 function App() {
-  const [items, setItems] = useState(initialItems);
+  const localStorageItem = JSON.parse(localStorage.getItem("items"));
+  const [items, setItems] = useState(localStorageItem || initialItems);
   const totalNumberOfItem = items.length;
   const totalNumberOfPacked = items.filter(
     (item) => item.packed === true
@@ -60,6 +61,10 @@ function App() {
     });
     setItems(updateItem);
   };
+
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(items));
+  }, [items]);
   return (
     <>
       <BackgroundHeading></BackgroundHeading>
